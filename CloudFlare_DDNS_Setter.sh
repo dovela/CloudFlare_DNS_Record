@@ -165,7 +165,7 @@ Lightsail_conf(){
 
 lightsail_change_ip(){
     #检查本机ip是否被tcp阻断
-    tcp_status=`curl --silent https://ipcheck.need.sh/api_v2.php?ip=${local_ip} | awk -F '[:}]' '{print $21}'`
+    tcp_status=`curl --silent https://api.50network.com/china-firewall/check/ip/tcp_ack/${local_ip} | awk -F '[":,]' '{print $12}'`
     if [[ $tcp_status == "false" ]]; then
         tcp_count=0
         while [[ $tcp_count -lt $check_times ]]
