@@ -102,6 +102,12 @@ choose_service(){
 		echo -e "${Info} now will start automatically ddns record updating service"
 		update_record
 
+	elif [[ "$1" == "--changeIP" ]]; then
+        lightsail_force_change_ip
+        check_ip_diff
+		echo -e "${Info} now will start automatically ddns record updating service"
+		update_record
+
 	else
 		echo -e "${Error} invalid input !" && exit 1
 	fi
@@ -187,6 +193,13 @@ lightsail_change_ip(){
     fi
 }
 
+lightsail_force_change_ip(){
+    aws lightsail release-static-ip --static-ip-name ${lightsail_ipname} >/dev/null 2>&1
+    aws lightsail allocate-static-ip --static-ip-name ${lightsail_ipname} >/dev/null 2>&1
+    aws lightsail attach-static-ip --static-ip-name ${lightsail_ipname} --instance-name ${lightsail_instance} >/dev/null 2>&1
+    sleep 15s
+    fi
+}
 
 check_root
 check_system
