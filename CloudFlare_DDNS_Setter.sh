@@ -198,7 +198,6 @@ lightsail_force_change_ip(){
     aws lightsail allocate-static-ip --static-ip-name ${lightsail_ipname} >/dev/null 2>&1
     aws lightsail attach-static-ip --static-ip-name ${lightsail_ipname} --instance-name ${lightsail_instance} >/dev/null 2>&1
     sleep 15s
-    fi
 }
 
 check_root
